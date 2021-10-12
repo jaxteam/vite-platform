@@ -13,7 +13,7 @@ function Reducer(){
 
 function Api(){}
 
-// @Injectable
+@Injectable
 export default class Action implements IAction {
   constructor(
     public readonly reducer: IReducer,
@@ -28,13 +28,13 @@ export default class Action implements IAction {
     fetchUpdate(params: any): Promise<void> {
         throw new Error('Method not implemented.');
     }
-//   @loading()
+  @loading()
   async fetchItem(id:PK):Promise<void>{
     const data = await this.api.fetchItem(id)
     this.middleware.showSuccess(data?.msg)
   }
 
-//   @loading()
+  @loading()
   async fetchPage(params:any):Promise<void>{
     const data = await this.api.fetchPage(params);
     // if (data && data.code === 200) {
@@ -47,7 +47,7 @@ export default class Action implements IAction {
     // }
   }
 
-//   @loading()
+  @loading()
   async fetchDelete(params:any):Promise<void>{
     // const data = await this.api.fetchPage(params);
     // if (data && data.code === 200) {
