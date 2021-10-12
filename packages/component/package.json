@@ -1,0 +1,20 @@
+{
+  "name": "@btc/component",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "jaxchow <jaxchow@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "types":"lib/index.d.js",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc --declaration --noEmit false",
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ]
+}

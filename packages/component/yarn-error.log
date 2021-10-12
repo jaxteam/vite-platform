@@ -1,0 +1,48 @@
+Arguments: 
+  /usr/local/Cellar/node@12/12.20.0/bin/node /usr/local/bin/yarn build
+
+PATH: 
+  /usr/local/opt/node@12/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/usr/local/opt/node@12/bin:/Users/jaxchow/.antigen/bundles/robbyrussell/oh-my-zsh/lib:/Users/jaxchow/.antigen/bundles/robbyrussell/oh-my-zsh/plugins/git:/Users/jaxchow/.antigen/bundles/zsh-users/zsh-syntax-highlighting:/Users/jaxchow/.antigen/bundles/zsh-users/zsh-autosuggestions:/Users/jaxchow/.antigen/bundles/zsh-users/zsh-completions
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  12.20.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/jaxchow/workspaces/vite-platform/packages/component/package.json: Unexpected token } in JSON at position 237
+      at JSON.parse (<anonymous>)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "component",
+    "version": "0.0.0",
+    "description": "> TODO: description",
+    "author": "jaxchow <jaxchow@gmail.com>",
+    "homepage": "",
+    "license": "ISC",
+    "main": "lib/component.js",
+    "directories": {
+      "lib": "lib",
+    },
+    "files": [
+      "lib"
+    ],
+    "scripts": {
+      "test": "echo \"Error: run tests from root\" && exit 1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
