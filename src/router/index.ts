@@ -1,9 +1,10 @@
-import MicroApp, { Engine } from '@btc/micro'
+import { Engine } from '@btc/micro'
 import { createElement } from 'react'
 import ReactDOM from 'react-dom'
 import { MicroContext, MicroRoutes } from '@btc/micro/lib/micro'
 import Dashboard from '../views/dashboard'
-import List from '../views/list'
+import ListView from '../views/list'
+import EditView from '../views/edit'
 import { Provider } from 'react-redux'
 import storeManager from '../store'
 
@@ -31,7 +32,14 @@ export const routes: MicroRoutes<any, MicroContext> = [{
     path: '/list',
     name:"list",
     component: (context: MicroContext, props: any) => () => {
-        return createElement(List)
+        return createElement(ListView)
+    },
+    engine: Engine.getRender('react')
+},{
+    path: '/edit',
+    name:"edit",
+    component: (context: MicroContext, props: any) => () => {
+        return createElement(EditView)
     },
     engine: Engine.getRender('react')
 }]

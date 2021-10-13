@@ -1,15 +1,6 @@
-import { MicroApp } from '@btc/micro'
-import { routes } from './router'
-import { createHashHistory } from 'history'
+import ReactDOM from 'react-dom'
+import App from './App'
 import "./app.css"
+import './i18n'
 
-
-const app = new MicroApp({
-  routes,
-  history: createHashHistory()
-}).render(document.getElementById("root")||document.body)
-
-app.push("/list")
-
-
-// export default App
+ReactDOM.render(<App></App>,document.getElementById("root"))
