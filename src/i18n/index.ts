@@ -17,6 +17,8 @@ i18next.use(initReactI18next).init({
     }
 });
 
+// i18next.addResource
+
 // console.log(i18next.t("GLOBAL.EDIT"))
 
 

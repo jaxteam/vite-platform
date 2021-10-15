@@ -6,7 +6,7 @@
   "homepage": "",
   "license": "ISC",
   "main": "lib/index.js",
-  "types":"lib/index.d.ts",
+  "types": "lib/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -19,6 +19,7 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "history": "^5.0.1",
     "typescript": "^4.4.3",
     "universal-router": "^9.1.0"

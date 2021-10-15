@@ -19,6 +19,7 @@ class MicroApp {
                 const child = await context.next();
                 console.log('middleware: end');
                 return child;
+                // return 
             },
             resolveRoute: function (context, params) {
                 if ((context.route?.preAction && context.route?.preAction(context, params) || context.route?.preAction === undefined) && typeof context.route.component === 'function') {
@@ -36,6 +37,13 @@ class MicroApp {
         });
     }
     /**
+     * use middleware
+     * @param middleware
+     */
+    use(middleware) {
+        middleware.init(this);
+    }
+    /**
      * 添加子路由配置
      * @param router MicroRoute 对象
      */
@@ -48,6 +56,9 @@ class MicroApp {
     push(pathname) {
         this.history.push(pathname);
     }
+    getHistory() {
+        return this.history;
+    }
     /**
      * 查找指定route URL完整地址
      * @param name route 指定名称
@@ -55,7 +66,8 @@ class MicroApp {
      * @returns
      */
     findURL(name, params) {
-        return generateUrls(this.router)(name);
+        // this.history.location
+        return generateUrls(this.router)(name, params);
     }
     /**
      * 渲染组件
@@ -65,9 +77,9 @@ class MicroApp {
     render(dom) {
         var self = this;
         self.history.listen(function (update) {
-            console.log(update);
+            // console.log(update)
             self.router.resolve(update.location.pathname).then(component => {
-                console.log(component);
+                // console.log(component)
                 dom.innerHTML = "";
                 dom.appendChild(component);
                 // console.log(dom.innerHTML,component)

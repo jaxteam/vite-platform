@@ -13,6 +13,7 @@ import {
   Button,
   AutoComplete,
 } from 'antd';
+import { useNavigation } from "../micro/useMicro";
 
 interface PEditView{
 
@@ -285,10 +286,11 @@ const RegistrationForm = () => {
   
 
 const EditView:FC<PEditView> = function(props:PEditView){
+  const {viewPath,naviagtorName} = useNavigation()
    return (
     <PageHeader
     className="site-page-header"
-    onBack={() => null}
+    onBack={() => naviagtorName("demo.list")}
     title="编辑页"
     subTitle="请填写数据连接信息"
   >

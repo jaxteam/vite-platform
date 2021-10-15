@@ -4,23 +4,28 @@ import {Update,History } from "history"
 
 export type RenderEngine = (component:any, element: HTMLElement)=>HTMLElement
 
-export interface  MicroRoute<R = any, C extends RouterContext = RouterContext> extends Route{
-    component:(context:MicroContext,params:any)=>any
+export interface  MicroRoute<R = Route, C extends RouterContext = RouterContext> extends Route{
+    component?:(context:MicroContext,params:any)=>any
     mount?:()=>void
     umount?:()=>void
-    engine:RenderEngine
+    engine?:RenderEngine
+    children?: any;
 }
 
 export interface MicroContext extends RouterContext{
     
 }
 
-export type MicroRoutes<R = any, C extends RouterContext = RouterContext> = Array<MicroRoute<R, C>>
+export type MicroRoutes<R = any, C extends RouterContext = MicroContext> = Array<MicroRoute<R, C>>
 
 export interface MicroAppOptions{
     history:History;
     routes:MicroRoutes;
     // element:HTMLElement
+}
+
+interface MicroMiddleware{
+    init:(instance:MicroApp)=>void
 }
 
 
@@ -43,6 +48,8 @@ class MicroApp{
                 const child = await context.next()
                 console.log('middleware: end')
                 return child
+                
+                // return 
             },
             resolveRoute: function (context: RouterContext, params: RouteParams) {
                 if ((context.route?.preAction && context.route?.preAction(context, params) || context.route?.preAction === undefined) && typeof context.route.component === 'function') {
@@ -59,7 +66,13 @@ class MicroApp{
             resolveRoute: universalConfig.resolveRoute
         })  
     }
-
+    /**
+     * use middleware
+     * @param middleware
+     */
+    use(middleware:MicroMiddleware){
+        middleware.init(this);
+    }
     /**
      * 添加子路由配置
      * @param router MicroRoute 对象
@@ -75,6 +88,10 @@ class MicroApp{
     push(pathname:string){
         this.history.push(pathname)
     }
+
+    getHistory(){
+        return this.history
+    }
     /**
      * 查找指定route URL完整地址
      * @param name route 指定名称
@@ -82,7 +99,8 @@ class MicroApp{
      * @returns 
      */
     findURL(name:string,params?:any){
-        return generateUrls(this.router)(name)
+        // this.history.location
+        return generateUrls(this.router)(name,params)
     }
 
     /**
@@ -95,7 +113,7 @@ class MicroApp{
         self.history.listen(function (update: Update) {
             // console.log(update)
             self.router.resolve(update.location.pathname).then(component => {
-                console.log(component)
+                // console.log(component)
                 dom.innerHTML=""
                 dom.appendChild(component)
                 // console.log(dom.innerHTML,component)

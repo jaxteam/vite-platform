@@ -1,62 +1,69 @@
-import {InjectFactory, Middleware, Decorator} from '@mcfed/core';
-import {IAction, IApi, IReducer, PK} from './interface';
+import { InjectFactory, Middleware, Decorator } from '@mcfed/core';
+import { mock } from 'mockjs';
+import { IAction, IApi, IReducer, PK } from './interface';
 // import Api from './api';
 // import Reducer from './reducer';
 
-const {MiddlewareFactory} = Middleware;
-const {Injectable} = InjectFactory;
-const {param, loading} = Decorator;
+const { MiddlewareFactory } = Middleware;
+const { Injectable } = InjectFactory;
+const { param, loading } = Decorator;
 
-function Reducer(){
+function Reducer() {
 
 }
 
-function Api(){}
+class Api {
+  fetchPage(params: any) {
+    const mockjson = {
+      "data|200": [{
+        id: "@id",
+        name: "@cname",
+        datasource: "@pick(['oracle','mysql','pg'])",
+        ip: "@ip",
+        port: "@integer(1024,65535)",
+        statue: "@boolean"
+      }]
+    }
+    return mock(mockjson)
+  }
+  fetchItem(params: any) {
+    const mockjson = {
+      "data": {
+        id: "@id",
+        name: "@cname",
+        datasource: "@pick(['oracle','mysql','pg'])",
+        ip: "@ip",
+        port: "@integer(1024,65535)",
+        statue: "@boolean"
+      }
+    }
+    return mock(mockjson)
+  }
+}
 
 @Injectable
-export default class Action implements IAction {
+export default class AAAction implements IAction {
   constructor(
-    public readonly reducer: IReducer,
-    public readonly api: IApi,
-    public readonly middleware: Middleware.MiddlewareFactory
+    private readonly api: Api,
   ) {
-    // super(reducer, api, middleware);
+    //@ts-ignore
+    // super(api);
   }
-    fetchSave(params: any): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
-    fetchUpdate(params: any): Promise<void> {
-        throw new Error('Method not implemented.');
-    }
-  @loading()
-  async fetchItem(id:PK):Promise<void>{
-    const data = await this.api.fetchItem(id)
-    this.middleware.showSuccess(data?.msg)
+  async fetchPage(params: any): Promise<void> {
+    // this.api.fetchPage({a:1})
+    // throw new Error('Method not implemented.');
   }
-
-  @loading()
-  async fetchPage(params:any):Promise<void>{
-    const data = await this.api.fetchPage(params);
-    // if (data && data.code === 200) {
-      console.log(data)
-      //@ts-ignore
-      this.reducer.saveList({list:data,currentPage:1,total:100})
-      this.middleware.showSuccess(data?.msg);
-    // } else {
-    //   this.middleware.showError(data?.msg);
-    // }
+  fetchItem(id: PK): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+  fetchDelete(ids: PK | PK[]): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+  fetchSave(params: any): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
+  fetchUpdate(params: any): Promise<void> {
+    throw new Error('Method not implemented.');
   }
 
-  @loading()
-  async fetchDelete(params:any):Promise<void>{
-    // const data = await this.api.fetchPage(params);
-    // if (data && data.code === 200) {
-      console.log("delete")
-      //@ts-ignore
-      // this.reducer.saveList({list:data,currentPage:1,total:100})
-      this.middleware.showSuccess(data?.msg);
-    // } else {
-    //   this.middleware.showError(data?.msg);
-    // }
-  }
 }

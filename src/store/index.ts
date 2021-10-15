@@ -1,8 +1,9 @@
 
-import { StoreManager } from '@mcfed/core';
+import { StoreManager,Middleware } from '@mcfed/core';
 import { CombinedState, combineReducers } from 'redux';
 import {createLogger} from 'redux-logger';
 
+const {fetchingMiddleware} =Middleware
 const makeRootReducer: CombinedState<any> = (asyncReducers: any) => {
     return combineReducers(asyncReducers)
   };

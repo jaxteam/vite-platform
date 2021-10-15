@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react({
     babel: {
       parserOpts: {
-        plugins: ['decorators-legacy']
+        plugins: ['decorators-legacy','babel-plugin-transform-typescript-metadata']
       }
     }
   })]
